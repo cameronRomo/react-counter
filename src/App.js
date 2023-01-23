@@ -5,10 +5,6 @@ import Counters from "./components/Counters";
 import Navbar from "./components/Navbar";
 
 class App extends Component {
-  constructor() {
-    super();
-    console.log("App - Constructor");
-  }
   state = {
     counters: [
       { id: 1, value: 0 },
@@ -60,17 +56,18 @@ class App extends Component {
   render() {
     return (
       <>
-        <Navbar
+        {/* <Navbar
           totalCounters={this.state.counters.filter((c) => c.value > 0).length}
-        />
+        /> */}
         <main className="container">
-          <Counters
+          {/* <Counters
             counters={this.state.counters}
             onReset={this.handleReset}
             onIncrement={this.handleIncrement}
             onDecrement={this.handleDecrement}
             onDelete={this.handleDelete}
-          />
+          /> */}
+          <Movies />
         </main>
       </>
     );
