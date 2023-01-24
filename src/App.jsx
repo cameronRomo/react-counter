@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import "./App.css";
+import { Route, Redirect, Switch } from "react-router-dom";
 import Movies from "./components/Movies";
 import Counters from "./components/Counters";
 import Navbar from "./components/Navbar";
+import Customers from "./components/Customers";
+import Rentals from "./components/Rentals";
+import NotFound from "./components/NotFound";
 
 class App extends Component {
   state = {
@@ -55,21 +59,16 @@ class App extends Component {
 
   render() {
     return (
-      <>
-        {/* <Navbar
-          totalCounters={this.state.counters.filter((c) => c.value > 0).length}
-        /> */}
-        <main className="container">
-          {/* <Counters
-            counters={this.state.counters}
-            onReset={this.handleReset}
-            onIncrement={this.handleIncrement}
-            onDecrement={this.handleDecrement}
-            onDelete={this.handleDelete}
-          /> */}
-          <Movies />
-        </main>
-      </>
+      <main className="container">
+        <Switch>
+          <Route path="/movies" component={Movies}></Route>
+          <Route path="/customers" component={Customers}></Route>
+          <Route path="/rentals" component={Rentals}></Route>
+          <Route path="/not-found" component={NotFound}></Route>
+          <Redirect from="/" exact to="movies" />
+          <Redirect to="/not-found" />
+        </Switch>
+      </main>
     );
   }
 }
