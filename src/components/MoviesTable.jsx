@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Like from "../common/Like";
-import Table from "../common/Table";
+import Like from "./common/Like";
+import Table from "./common/Table";
 import _ from "lodash";
 
 class MoviesTable extends Component {
