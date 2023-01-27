@@ -9,6 +9,8 @@ import NotFound from "./components/NotFound";
 import MovieForm from "./components/MovieForm";
 import LoginForm from "./components/LoginForm";
 import Register from "./components/RegisterForm";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 class App extends Component {
@@ -63,6 +65,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <ToastContainer />
         <Navbar />
         <main className="container">
           <Switch>
