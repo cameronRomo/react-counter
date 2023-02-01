@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import jwtDecode from "jwt-decode";
 import Movies from "./components/Movies";
-import Counters from "./components/Counters";
 import Navbar from "./components/Navbar";
 import Customers from "./components/Customers";
 import Rentals from "./components/Rentals";
@@ -9,19 +10,19 @@ import NotFound from "./components/NotFound";
 import MovieForm from "./components/MovieForm";
 import LoginForm from "./components/LoginForm";
 import Register from "./components/RegisterForm";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    counters: [
-      { id: 1, value: 0 },
-      { id: 2, value: 0 },
-      { id: 3, value: 0 },
-      { id: 4, value: 0 },
-    ],
-  };
+  state = {};
+
+  componentDidMount() {
+    try {
+      const jwt = localStorage.getItem("token");
+      const user = jwtDecode(jwt);
+      this.setState({ user });
+    } catch (ex) {}
+  }
 
   handleDelete = (counterId) => {
     const counters = this.state.counters.filter(
@@ -66,7 +67,7 @@ class App extends Component {
     return (
       <>
         <ToastContainer />
-        <Navbar />
+        <Navbar user={this.state.user} />
         <main className="container">
           <Switch>
             <Route path="/register" component={Register} />
