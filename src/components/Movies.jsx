@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { getMovies, deleteMovie } from "../services/movieService";
 import { getGenres } from "../services/genreService";
 import Pagination from "./common/Pagination";
-import _, { filter } from "lodash";
+import _ from "lodash";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/ListGroup";
 import MoviesTable from "./MoviesTable";
 import { Link } from "react-router-dom";
 import SearchBox from "./SearchBox";
-import { getMovie } from "../services/fakeMovieService";
 import { toast } from "react-toastify";
 
 class Movies extends Component {
@@ -125,8 +124,6 @@ class Movies extends Component {
       return <p>There are no movies in the database.</p>;
 
     const { totalCount, data: movies } = this.getPageData();
-
-    console.log("this.state.movies :>> ", this.state.movies);
 
     return (
       <div className="row">
