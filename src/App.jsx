@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import jwtDecode from "jwt-decode";
 import Movies from "./components/Movies";
 import Navbar from "./components/Navbar";
 import Customers from "./components/Customers";
@@ -10,6 +9,8 @@ import NotFound from "./components/NotFound";
 import MovieForm from "./components/MovieForm";
 import LoginForm from "./components/LoginForm";
 import Register from "./components/RegisterForm";
+import Logout from "./components/logout";
+import auth from "./services/authService";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -17,11 +18,8 @@ class App extends Component {
   state = {};
 
   componentDidMount() {
-    try {
-      const jwt = localStorage.getItem("token");
-      const user = jwtDecode(jwt);
-      this.setState({ user });
-    } catch (ex) {}
+    const user = auth.getCurrentUser();
+    this.setState({ user });
   }
 
   handleDelete = (counterId) => {
@@ -72,6 +70,7 @@ class App extends Component {
           <Switch>
             <Route path="/register" component={Register} />
             <Route path="/login" component={LoginForm} />
+            <Route path="/logout" component={Logout} />
             <Route path="/movies/:id" component={MovieForm} />
             <Route path="/movies" component={Movies}></Route>
             <Route path="/customers" component={Customers}></Route>
