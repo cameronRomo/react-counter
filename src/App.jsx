@@ -11,6 +11,7 @@ import LoginForm from "./components/LoginForm";
 import Register from "./components/RegisterForm";
 import Logout from "./components/logout";
 import auth from "./services/authService";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -22,57 +23,22 @@ class App extends Component {
     this.setState({ user });
   }
 
-  handleDelete = (counterId) => {
-    const counters = this.state.counters.filter(
-      (counter) => counter.id !== counterId
-    );
-    this.setState({
-      counters,
-    });
-  };
-
-  handleReset = () => {
-    const counters = this.state.counters.map((counter) => {
-      counter.value = 0;
-      return counter;
-    });
-    this.setState({
-      counters,
-    });
-  };
-
-  handleIncrement = (counter) => {
-    const counters = [...this.state.counters];
-    const index = counters.indexOf(counter);
-    counters[index] = { ...counter };
-    counters[index].value++;
-    this.setState({
-      counters,
-    });
-  };
-
-  handleDecrement = (counter) => {
-    const counters = [...this.state.counters];
-    const index = counters.indexOf(counter);
-    counters[index] = { ...counter };
-    counters[index].value--;
-    this.setState({
-      counters,
-    });
-  };
-
   render() {
+    const { user } = this.state;
     return (
       <>
         <ToastContainer />
-        <Navbar user={this.state.user} />
+        <Navbar user={user} />
         <main className="container">
           <Switch>
             <Route path="/register" component={Register} />
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
-            <Route path="/movies/:id" component={MovieForm} />
-            <Route path="/movies" component={Movies}></Route>
+            <ProtectedRoute path="/movies/:id" component={MovieForm} />
+            <Route
+              path="/movies"
+              render={(props) => <Movies {...props} user={user} />}
+            ></Route>
             <Route path="/customers" component={Customers}></Route>
             <Route path="/rentals" component={Rentals}></Route>
             <Route path="/not-found" component={NotFound}></Route>
