@@ -5,7 +5,7 @@ import http from "./httpService";
 const API_ENDPOINT = "http://localhost:3900/api" + "/auth";
 const TOKEN_KEY = "token";
 
-http.setJWT(getJWT());
+http.setJwt(getJWT());
 
 export async function login(email, password) {
   const { data: jwt } = await http.post(API_ENDPOINT, { email, password });
